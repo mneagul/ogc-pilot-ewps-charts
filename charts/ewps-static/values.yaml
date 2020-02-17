@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 2
 
 image:
   repository: nginx
@@ -34,16 +34,22 @@ securityContext: {}
 
 service:
   type: NodePort
-  port: 80
+  port: 8819
 
 ingress:
   enabled: true
-  annotations: {}
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: public-endpoint-2
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: data.ogc-pilot-2020.sage.ieat.ro
-      paths: [ "/" ]
+    - host: "data.ogc-pilot-2020.sage.ieat.ro"
+      paths:
+        - path: "/*"
+          #serviceName: $fullName
+          servicePort: ewps-static
+        - path: "/"
+          servicePort: ewps-static
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
