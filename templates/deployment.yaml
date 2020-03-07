@@ -31,6 +31,15 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: K8S_STORAGE_CLAIM
+              value: "{{ .Release.Name }}-nfs"
+            - name: K8S_CONTAINER_STORAGE_DIRECTORY
+              value: /mnt
+            - name: EWPS_DATA_ENDPOINT
+              value: http://{{ .Values.ingress.host }}/data
+            - name: EWPS_SERVER_NAME
+              value: {{ .Values.ingress.host }}
           volumeMounts:
             - name: nfs-pvc
               mountPath: "/mnt"
