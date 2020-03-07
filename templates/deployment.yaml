@@ -36,6 +36,8 @@ spec:
               value: "{{ .Release.Name }}-nfs"
             - name: K8S_CONTAINER_STORAGE_DIRECTORY
               value: /mnt
+            - name: K8S_JOB_SERVICE_ACCOUNT
+              value: {{ include "ogc-pilot-ewps.serviceAccountName" . }}
             - name: EWPS_DATA_ENDPOINT
               value: http://{{ .Values.ingress.host }}/data
             - name: EWPS_SERVER_NAME
