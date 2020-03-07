@@ -40,6 +40,8 @@ spec:
               value: {{ include "ogc-pilot-ewps.serviceAccountName" . }}
             - name: EWPS_DATA_ENDPOINT
               value: http://{{ .Values.ingress.host }}/data
+            - name: K8S_TTL_SECONDS_AFTER_FINISHED
+              value: http://{{ .Values.job_ttl_seconds_after_finish | default 3600 }}/data
             - name: EWPS_SERVER_NAME
               value: {{ .Values.ingress.host }}
           volumeMounts:

@@ -17,6 +17,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 ewpsKubernetesNamespace: ""
+job_ttl_seconds_after_finish: "3600"
 
 rbac:
   create: true
