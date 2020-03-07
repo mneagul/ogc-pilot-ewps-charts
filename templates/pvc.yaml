@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: nfs-client
+  name: "{{ .Release.Name }}-nfs"
   labels:
     app: {{ include "ogc-pilot-ewps.fullname" . }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"

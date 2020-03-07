@@ -3,10 +3,11 @@ name: ogc-pilot-ewps
 description: EWPS OGC Pilot
 
 dependencies:
-  - name: nfs-client-provisioner
-    version: 1.2.8
-    repository: "@stable"
   - name: ewps-static
+#  - name: nfs-client-provisioner
+#    version: 1.2.8
+#    repository: "@stable"
+#    condition: nfs-client-provisioner.enabled
 
 # A chart can be either an 'application' or a 'library' chart.
 #

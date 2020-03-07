@@ -1,5 +1,10 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "ogc-pilot-ewps.fullname" . -}}
+
+{{- $defaultServicePort := printf "%s-%s" .Release.Name "wps" -}}
+{{- $ewpsStaticName := printf "%s-%s" .Release.Name "ewps-static" -}}
+{{- $ewpsStaticPortName := printf "%s-%s" .Release.Name "dta" -}}
+
 {{- $svcPort := .Values.service.port -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
@@ -27,15 +32,16 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - host: {{ .Values.ingress.host | quote }}
       http:
         paths:
-          {{- range .paths }}
-          - backend:
-              serviceName: {{ .serviceName | default $fullName }}
-              servicePort: {{ .servicePort | default $svcPort }}
-              #servicePort: {{ $svcPort }}
-          {{- end }}
-  {{- end }}
+          - path: "/data/"
+            backend:
+              serviceName: {{ $ewpsStaticName | quote }}
+              servicePort: {{ $ewpsStaticPortName | quote }}
+          - path: "/"
+            backend:
+              serviceName: {{ $fullName | quote }}
+              servicePort: {{ $defaultServicePort | quote }}
+
 {{- end }}
