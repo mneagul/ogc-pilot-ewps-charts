@@ -1,3 +1,5 @@
 1. eWPS is deployed and is reachable as:
    - WPS Endpoint: http://{{ .Values.ingress.host }}/wps
    - WPS Output base: http://{{ .Values.ingress.host }}/data
+
+Jobs are executed using the `{{ include "ogc-pilot-ewps.serviceAccountName" . }}` service account.
