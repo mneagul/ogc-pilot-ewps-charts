@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: mneagul/ewps-pilot-ewps
+  repository: mneagul/ogc-ewps-pilot
   pullPolicy: Always
 
 persistence:
