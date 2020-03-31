@@ -44,6 +44,8 @@ spec:
               value: http://{{ .Values.job_ttl_seconds_after_finish | default 3600 }}/data
             - name: EWPS_SERVER_NAME
               value: {{ .Values.ingress.host }}
+            - name: K8S_JOB_NAMESPACE
+              value: {{ .ewpsKubernetesNamespace | default .Release.Namespace }}
           volumeMounts:
             - name: nfs-pvc
               mountPath: "/mnt"
